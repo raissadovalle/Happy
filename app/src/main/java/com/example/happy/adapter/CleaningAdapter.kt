@@ -13,7 +13,9 @@ import com.example.happy.CleaningActivity
 import com.example.happy.R
 import com.example.happy.model.Cleaning
 
-class CleaningAdapter(val list: List<Cleaning>, val context: Context) : RecyclerView.Adapter<CleaningAdapter.ViewHolder>() {
+class CleaningAdapter(val context: Context) : RecyclerView.Adapter<CleaningAdapter.ViewHolder>() {
+
+    var list: List<Cleaning> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CleaningAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.cleaning_item, parent, false)
 
@@ -25,7 +27,7 @@ class CleaningAdapter(val list: List<Cleaning>, val context: Context) : Recycler
     override fun onBindViewHolder(holder: CleaningAdapter.ViewHolder, position: Int) {
         val cleaningRoom = list[position]
         holder.descCleaningItem.text = cleaningRoom.desc
-        holder.memberCleaningItem.text = cleaningRoom.member.name
+        //todo holder.memberCleaningItem.text = cleaningRoom.member.name
         holder.imageView.setImageResource(R.drawable.ic_baseline_home_24) //TODO mudança de icones
         holder.cardView.setOnClickListener {
             val intent = Intent(context, CleaningActivity::class.java)

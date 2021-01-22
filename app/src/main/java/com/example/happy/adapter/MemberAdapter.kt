@@ -14,7 +14,9 @@ import com.example.happy.R
 
 import com.example.happy.model.Member
 
-class MemberAdapter(val list: List<Member>, val context: Context) : RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
+class MemberAdapter(val context: Context) : RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
+
+    var list: List<Member> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.members, parent, false)
 

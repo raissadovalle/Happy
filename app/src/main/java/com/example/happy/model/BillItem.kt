@@ -1,10 +1,24 @@
 package com.example.happy.model
 
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.*
 
-data class BillItem(val id: Int,
-                    val Desc: String,
-                    val Price: Double,
-                    val Type: BillType,
-                    val Date: String) : Serializable
+@Entity(tableName = "bills")
+data class BillItem(@PrimaryKey val id: String = UUID.randomUUID().toString(),
+                    val repId: String,
+                    val desc: String,
+                    val price: Double,
+                    val type: BillType,
+                    val date: String) : Serializable {
+
+                    enum class BillType(val message: String) {
+                        RENT("Aluguel"),
+                        ELECTRICITY("Luz"),
+                        WATER("Água"),
+                        SHOPPING("Compras"),
+                        OTHERS("Outros")
+                    }
+}

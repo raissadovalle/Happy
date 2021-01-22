@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="notifications_category"
+        app:title="Notificações">
+
+        <SwitchPreference
+            app:key="notifications"
+            app:summary="Receba notificações e alertas da sua República"
+            app:title="Habilitart alertas e notificações" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="help_category"
+        app:title="Ajuda">
+
+        <Preference
+            app:key="feedback"
+            app:summary="Avise de problemas técnicos ou envie sugestões e melhorias"
+            app:title="Entrar em contato">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="Contato (19)98325-5521"/>
+
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

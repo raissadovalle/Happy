@@ -1,25 +1,25 @@
 package com.example.happy
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.happy.R
-import com.example.happy.adapter.MeetingAdapter
 import com.example.happy.adapter.NotificationAdapter
-import com.example.happy.model.Components
-import com.example.happy.model.Meeting
-import com.example.happy.model.Notification
+import com.example.happy.viewmodel.MemberViewModel
+import com.example.happy.viewmodel.NotificationViewModel
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var textLogin: TextView
     lateinit var profilePicture: ImageView
     lateinit var recyclerNotifications: RecyclerView
+    private val notificationViewModel by viewModels<NotificationViewModel>()
+    private val memberViewModel by viewModels<MemberViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,19 +68,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
 
-        recyclerNotifications = findViewById(R.id.rv_notifications)
 
-        val arrayNotifications = arrayListOf<Notification>(
-            Notification(1, "Foi comprado: Amaciante R$ 10,99 por Raissa", Components(4, "Compras"),"12/01/2012"),
-            Notification(2, "O Banheiro foi limpo por José", Components(2, "Limpeza"),"12/01/2012"),
-            Notification(3, "Novo membro Leonardo foi adicionado", Components(3, "Membros"),"12/01/2012"),
-            Notification(4, "Conta de Àgua adicionada de R$ 119,80", Components(1, "Contas"),"12/01/2012")
-        )
-
-        val adapterNotifications = NotificationAdapter(arrayNotifications, this)
-
-        recyclerNotifications.adapter = adapterNotifications
-        recyclerNotifications.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onBackPressed() {
@@ -113,14 +103,45 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, HelpActivity::class.java)
                 startActivity(intent)
             }
-//            R.id.nav_sign_out -> {
-//                val intent = Intent(this, SignOutActivity::class.java)
-//                startActivity(intent)
-//            }
+            R.id.nav_sign_out -> {
+                memberViewModel.logout()
+                finish()
+                val intent = Intent(this, SplashActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         drawerLayout.closeDrawer(GravityCompat.START)
 
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val profileImage = PreferenceManager.getDefaultSharedPreferences(this).getString(MediaStore.EXTRA_OUTPUT, null)
+        if(profileImage != null) {
+            profilePicture.setImageURI(Uri.parse(profileImage))
+        }
+        else {
+            profilePicture.setImageResource(R.mipmap.ic_launcher_round)
+        }
+
+        recyclerNotifications = findViewById(R.id.rv_notifications)
+
+        val adapterNotifications = NotificationAdapter(this)
+
+        memberViewModel.isLogged().observe(this, Observer {
+            it?.let {
+                textLogin.text = it.name
+                notificationViewModel.getNotificationByMemberId(it.id).observe(this, Observer{ it2 ->
+                    adapterNotifications.list = it2
+                    adapterNotifications.notifyDataSetChanged()
+                })
+            }
+        })
+
+        recyclerNotifications.adapter = adapterNotifications
+        recyclerNotifications.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 }

@@ -1,5 +1,15 @@
 package com.example.happy.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.util.*
 
-data class Meeting(val id: Int, val date: String, val subject: String, val debate: String, val verdict: String, val forwarding: String) : Serializable
+@Entity(tableName = "meetings")
+data class Meeting(@PrimaryKey val id: String = UUID.randomUUID().toString(),
+                   val repId : String,
+                   val date: String,
+                   val subject: String,
+                   val debate: String?,
+                   val verdict: String?,
+                   val forwarding: String?) : Serializable

@@ -13,7 +13,10 @@ import com.example.happy.MeetingsActivity
 import com.example.happy.R
 import com.example.happy.model.Meeting
 
-class MeetingAdapter(val list: List<Meeting>, val context: Context) : RecyclerView.Adapter<MeetingAdapter.ViewHolder>() {
+class MeetingAdapter(val context: Context) : RecyclerView.Adapter<MeetingAdapter.ViewHolder>() {
+
+    var list: List<Meeting> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeetingAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.meetings, parent, false)
 

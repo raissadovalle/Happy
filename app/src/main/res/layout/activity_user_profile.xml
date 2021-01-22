@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UserProfileActivity"
-    android:background="@color/black"
     android:gravity="center">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,71 +27,132 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/iv_profile_image"
-                android:layout_width="280dp"
-                android:layout_height="280dp"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
                 android:src="@mipmap/ic_launcher_round"
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"/>
 
-
-            <EditText
-                android:id="@+id/input_full_name"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_full_name_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:hint="@string/user_profile_full_name"
-                android:inputType="textEmailAddress"
-                android:padding="16dp"
-                android:textColorHint="@color/primary_green" />
+                android:layout_weight="1"
+                >
 
-            <EditText
-                android:id="@+id/input_hometown"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/input_hometown_title"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:hint="@string/user_profile_hometown"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_hometown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Spinner
+                    style="@style/Widget.AppCompat.Spinner.DropDown"
+                    android:id="@+id/sp_state"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="4dp"
+                    android:entries="@array/states"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_college_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
-                android:hint="@string/user_profile_hometown"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColorHint="@color/primary_green" />
-
-            <EditText
-                android:id="@+id/input_college"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:hint="@string/user_profile_college"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColorHint="@color/primary_green" />
+                android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/input_graduate"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_college"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_graduate_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/round_border"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:hint="@string/user_profile_graduate"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textColorHint="@color/primary_green" />
+                android:layout_weight="1">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_graduate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"/>
 
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_celNumber_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:hint="@string/user_profile_celPhone"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_celNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button android:id="@+id/btn_user_register"
                 android:layout_width="match_parent"
@@ -101,10 +161,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/round_bg"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:textColor="@color/black"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:textStyle="bold"/>
 
         </LinearLayout>

@@ -4,18 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.happy.adapter.BillItemAdapter
 import com.example.happy.adapter.MemberAdapter
-import com.example.happy.model.BillItem
-import com.example.happy.model.BillType
-import com.example.happy.model.Member
-import com.example.happy.model.ProfilePhoto
-import com.google.android.material.chip.ChipGroup
+import com.example.happy.viewmodel.MemberViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.menu_toolbar_layout.*
 
 class MembersActivity : AppCompatActivity() {
 
@@ -23,6 +19,7 @@ class MembersActivity : AppCompatActivity() {
     lateinit var textTitle: TextView
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerMembers: RecyclerView
+    val memberViewModel by viewModels<MemberViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +42,12 @@ class MembersActivity : AppCompatActivity() {
 
         recyclerMembers = findViewById(R.id.rv_members)
 
-        val arrayMembers = arrayListOf<Member>(
-            Member(1, "Raissa", "98325-5521", "dovalleraissa@gmail.com", ProfilePhoto(1, "www.photo.com")),
-            Member(2, "Bianca", "98654-6598", "bicotarelli@gmail.com", ProfilePhoto(1, "www.photo.com")),
-            Member(3, "José", "66546-5644", "jrubesoliveira@hotmail.com", ProfilePhoto(1, "www.photo.com")),
-            Member(4, "Amanda", "65548-9977", "amanda_portela@terra.com", ProfilePhoto(1, "www.photo.com"))
-        )
+        val adapterMembers = MemberAdapter(this)
 
-        val adapterMembers = MemberAdapter(arrayMembers, this)
+        memberViewModel.getMemberByRepId("1").observe(this, Observer{
+            adapterMembers.list = it
+            adapterMembers.notifyDataSetChanged()
+        }) //TODO repId
 
         recyclerMembers.adapter = adapterMembers
         recyclerMembers.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)

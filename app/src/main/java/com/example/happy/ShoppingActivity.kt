@@ -4,15 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.happy.adapter.BillItemAdapter
 import com.example.happy.adapter.ShoppingAdapter
-import com.example.happy.model.BillItem
-import com.example.happy.model.BillType
-import com.example.happy.model.Shopping
-import com.google.android.material.chip.ChipGroup
+import com.example.happy.repository.ShoppingRepository
+import com.example.happy.viewmodel.ShoppingViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ShoppingActivity : AppCompatActivity() {
@@ -21,6 +20,7 @@ class ShoppingActivity : AppCompatActivity() {
     lateinit var textTitle: TextView
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerShoppingItens: RecyclerView
+    val shoppingViewModel by viewModels<ShoppingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,14 +43,12 @@ class ShoppingActivity : AppCompatActivity() {
 
         recyclerShoppingItens = findViewById(R.id.rv_shopping)
 
-        val arrayShoppingItens = arrayListOf<Shopping>(
-            Shopping(1, "Leite", "12/01/2021",5.99),
-            Shopping(2, "Arroz", "12/01/2021",12.99),
-            Shopping(3, "Amaciante", "12/01/2021",7.90),
-            Shopping(4, "Panela", "12/01/2021",49.90)
-        )
+        val adapterShoppingItens = ShoppingAdapter(this)
 
-        val adapterShoppingItens = ShoppingAdapter(arrayShoppingItens, this)
+        shoppingViewModel.getShoppingByRepId("1").observe(this, Observer{
+            adapterShoppingItens.list = it
+            adapterShoppingItens.notifyDataSetChanged()
+        }) //TODO repid
 
         recyclerShoppingItens.adapter = adapterShoppingItens
         recyclerShoppingItens.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)

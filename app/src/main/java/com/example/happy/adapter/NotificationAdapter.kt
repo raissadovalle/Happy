@@ -14,7 +14,8 @@ import com.example.happy.R
 import com.example.happy.model.Cleaning
 import com.example.happy.model.Notification
 
-class NotificationAdapter (val list: List<Notification>, val context: Context) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+class NotificationAdapter (val context: Context) : RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
+    var list: List<Notification> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.notification_item, parent, false)
 

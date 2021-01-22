@@ -4,12 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.BillItemAdapter
 import com.example.happy.adapter.CleaningAdapter
 import com.example.happy.model.*
+import com.example.happy.repository.CleaningRepository
+import com.example.happy.viewmodel.CleaningViewModel
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -19,6 +23,7 @@ class CleaningActivity : AppCompatActivity() {
     lateinit var textTitle: TextView
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerCleaningRooms: RecyclerView
+    private val cleaningViewModel by viewModels<CleaningViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +46,12 @@ class CleaningActivity : AppCompatActivity() {
 
         recyclerCleaningRooms = findViewById(R.id.rv_cleaning)
 
-        val arrayCleaning = arrayListOf<Cleaning>(
-            Cleaning(1, "Cozinha", Member(1, "José", "98653-5512", "jose@gmail.com", ProfilePhoto(1, "foto.com.br")), "12/01/2021", 15),
-            Cleaning(2, "Banheiro", Member(2,"Raissa", "98653-5512", "raissa@gmail.com", ProfilePhoto(1, "foto.com.br")), "05/01/2021", 7),
-            Cleaning(3, "Quarto 1", Member(3,"Bianca", "98653-5512", "bianca@gmail.com", ProfilePhoto(1, "foto.com.br")), "03/01/2021", 7),
-            Cleaning(4, "Sala", Member(4,"Gabriela", "98653-5512", "amanda@gmail.com", ProfilePhoto(1, "foto.com.br")), "01/01/2021", 15)
-        )
+        val adapterCleaning = CleaningAdapter(this)
 
-        val adapterCleaning = CleaningAdapter(arrayCleaning, this)
+        cleaningViewModel.getCleaningByRepId("1").observe(this, Observer{
+            adapterCleaning.list = it
+            adapterCleaning.notifyDataSetChanged()
+        }) //TODO repid
 
         recyclerCleaningRooms.adapter = adapterCleaning
         recyclerCleaningRooms.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)

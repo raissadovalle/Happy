@@ -13,7 +13,10 @@ import com.example.happy.R
 import com.example.happy.ShoppingActivity
 import com.example.happy.model.Shopping
 
-class ShoppingAdapter(val list: List<Shopping>, val context: Context) : RecyclerView.Adapter<ShoppingAdapter.ViewHolder>() {
+class ShoppingAdapter(val context: Context) : RecyclerView.Adapter<ShoppingAdapter.ViewHolder>() {
+
+    var list: List<Shopping> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.shopping_item, parent, false)
 

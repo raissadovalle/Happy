@@ -13,7 +13,10 @@ import com.example.happy.BillsActivity
 import com.example.happy.R
 import com.example.happy.model.BillItem
 
-class BillItemAdapter(val list: List<BillItem>, val context: Context) : RecyclerView.Adapter<BillItemAdapter.ViewHolder>() {
+class BillItemAdapter(val context: Context) : RecyclerView.Adapter<BillItemAdapter.ViewHolder>() {
+
+    var list: List<BillItem> = emptyList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.bill_item, parent, false)
 
@@ -24,8 +27,8 @@ class BillItemAdapter(val list: List<BillItem>, val context: Context) : Recycler
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val bill = list[position]
-        holder.descBillItem.text = bill.Desc
-        holder.priceBillItem.text = bill.Price.toString()
+        holder.descBillItem.text = bill.desc
+        holder.priceBillItem.text = bill.price.toString()
         holder.imageView.setImageResource(R.drawable.ic_baseline_attach_money_24) //TODO mudança de icones
         holder.cardView.setOnClickListener {
             val intent = Intent(context, BillsActivity::class.java)

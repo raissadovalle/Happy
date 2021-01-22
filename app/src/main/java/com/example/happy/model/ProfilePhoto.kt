@@ -1,4 +1,8 @@
 package com.example.happy.model
 
-data class ProfilePhoto(val id: Int, val path: String) {
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "profilePhotos")
+data class ProfilePhoto(@PrimaryKey val id: Int, val path: String) {
 }

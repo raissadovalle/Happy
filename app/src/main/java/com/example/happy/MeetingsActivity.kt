@@ -4,14 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.happy.adapter.BillItemAdapter
 import com.example.happy.adapter.MeetingAdapter
-import com.example.happy.model.BillItem
-import com.example.happy.model.BillType
-import com.example.happy.model.Meeting
+import com.example.happy.viewmodel.MeetingViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MeetingsActivity : AppCompatActivity() {
@@ -20,6 +19,7 @@ class MeetingsActivity : AppCompatActivity() {
     lateinit var textTitle: TextView
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerMeetings: RecyclerView
+    private val meetingviewModel by viewModels<MeetingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +42,12 @@ class MeetingsActivity : AppCompatActivity() {
 
         recyclerMeetings = findViewById(R.id.rv_meetings)
 
-        val arrayMeetings = arrayListOf<Meeting>(
-            Meeting(1, "12/01/2012", "Assunto 1","Pessoa falo X, fulano falou Y, siclano não concorda", "Decisão de achar um eletricista", "Fulano vai ligar para o eletricista"),
-            Meeting(2, "05/01/2021", "Assunto 2","Pessoa falo X, fulano falou Y, siclano não concorda", "Não deixar a louça mais de 24 hrs na pia", "A louça sera separada por pessoa na pia"),
-            Meeting(3, "03/01/2021", "Assunto 3","Pessoa falo X, fulano falou Y, siclano não concorda", "Avisar os moradores quando vierem visitas", "Avisar no grupo quando vierem pessoas"),
-            Meeting(4, "01/01/2021", "Assunto 4","Pessoa falo X, fulano falou Y, siclano não concorda", "Sem som alto após a meia noite", "Sem encaminhamentos")
-        )
+        val adapterMeetings = MeetingAdapter(this)
 
-        val adapterMeetings = MeetingAdapter(arrayMeetings, this)
+        meetingviewModel.getMeetingsByRepId("1").observe(this, Observer{
+            adapterMeetings.list = it
+            adapterMeetings.notifyDataSetChanged()
+        }) //TODO repid
 
         recyclerMeetings.adapter = adapterMeetings
         recyclerMeetings.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
