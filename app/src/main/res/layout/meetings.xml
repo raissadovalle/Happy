@@ -24,11 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="4">
 
             <TextView
                 android:id="@+id/subject_meeting"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/verdict_meeting"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:lines="4"
@@ -54,7 +54,7 @@
             <TextView
                 android:id="@+id/date_meeting"
                 android:layout_gravity="center|right"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />

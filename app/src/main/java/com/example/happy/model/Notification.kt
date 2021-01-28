@@ -18,7 +18,8 @@ data class Notification(@PrimaryKey val id: String = UUID.randomUUID().toString(
                             CLEANINGS("Limpeza"),
                             MEMBERS("Membros"),
                             SHOPPINGS("Compras"),
-                            MEETINGS("Reuniões")
+                            MEETINGS("Reuniões"),
+                            MYREP("Minha República")
                         }
 
 }

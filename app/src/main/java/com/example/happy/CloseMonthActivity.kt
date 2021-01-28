@@ -1,6 +1,13 @@
 package com.example.happy
 
+import android.app.LauncherActivity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -13,14 +20,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.BillCloseMonthAdapter
 import com.example.happy.adapter.ShoppingAdapter
 import com.example.happy.model.BillItem
+import com.example.happy.model.Notification
 import com.example.happy.repository.BillRepository
 import com.example.happy.repository.MemberRepository
-import com.example.happy.viewmodel.BillViewModel
-import com.example.happy.viewmodel.MemberViewModel
-import com.example.happy.viewmodel.RepViewModel
-import com.example.happy.viewmodel.ShoppingViewModel
+import com.example.happy.viewmodel.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CloseMonthActivity : AppCompatActivity() {
@@ -39,6 +45,12 @@ class CloseMonthActivity : AppCompatActivity() {
     val memberViewModel by viewModels<MemberViewModel>()
     val billViewModel by viewModels<BillViewModel>()
     val repViewModel by viewModels<RepViewModel>()
+    val notificationViewModel by viewModels<NotificationViewModel>()
+
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder : android.app.Notification.Builder
+    private val channelId = "com.example.happy.notification"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +87,14 @@ class CloseMonthActivity : AppCompatActivity() {
                 for(i in list) {
                     billViewModel.updateCloseBill(i.id, true)
                 }
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                val currentDate = sdf.format(Date())
+                val notification = Notification(memberId = it.repId!!,
+                        component = Notification.Components.BILLS,
+                        content = "Mês fechado por ${it.name}, Total: ${totalRepPrice.text}, Divisão: ${totalMemberPrice.text} para cada em ${currentDate}",
+                        date = currentDate.toString() )
+                notificationViewModel.create(notification)
+                sendNotification("Mês fechado por ${it.name}, Total: ${totalRepPrice.text}, Divisão: ${totalMemberPrice.text} para cada em ${currentDate}")
                 val intent = Intent(this, BillsActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -124,5 +144,27 @@ class CloseMonthActivity : AppCompatActivity() {
 
         recyclerBills.adapter = adapterBills
         recyclerBills.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
+    }
+
+    fun sendNotification(description: String) {
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val intent = Intent(this, LauncherActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_DEFAULT)
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.GREEN
+        notificationChannel.enableVibration(false)
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        builder = android.app.Notification.Builder(this, channelId)
+                .setContentTitle("Happy")
+                .setContentText(description)
+                .setSmallIcon(R .mipmap.ic_launcher_round)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.mipmap.ic_launcher_round))
+                .setContentIntent(pendingIntent)
+
+        notificationManager.notify(Math.random().toInt(), builder.build())
     }
 }

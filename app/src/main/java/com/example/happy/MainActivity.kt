@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.NotificationAdapter
@@ -137,7 +138,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         memberViewModel.isLogged().observe(this, Observer {
             it?.let {
                 textLogin.text = it.name
-                notificationViewModel.getNotificationByMemberId(it.id).observe(this, Observer{ it2 ->
+                notificationViewModel.getNotificationByMemberId(it.repId!!).observe(this, Observer{ it2 ->
                     adapterNotifications.list = it2
                     adapterNotifications.notifyDataSetChanged()
                 })

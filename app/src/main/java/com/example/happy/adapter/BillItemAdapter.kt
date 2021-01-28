@@ -42,11 +42,13 @@ class BillItemAdapter(val context: Context) : RecyclerView.Adapter<BillItemAdapt
         if(bill.type == BillItem.BillType.SHOPPING) holder.imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
         if(bill.type == BillItem.BillType.OTHERS) holder.imageView.setImageResource(R.drawable.ic_baseline_attach_money_24)
 
-        holder.cardView.setOnClickListener {
-            val intent = Intent(context, AddEditBillActivity::class.java)
-            intent.putExtra("IS_EDIT_BILL", true)
-            intent.putExtra("BILL", bill)
-            context.startActivity(intent)
+        if(!bill.isClosed) {
+            holder.cardView.setOnClickListener {
+                val intent = Intent(context, AddEditBillActivity::class.java)
+                intent.putExtra("IS_EDIT_BILL", true)
+                intent.putExtra("BILL", bill)
+                context.startActivity(intent)
+            }
         }
     }
 
