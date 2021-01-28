@@ -76,8 +76,8 @@ class MeetingsActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
                 val position = viewHolder.adapterPosition
-                val billToRemove = adapterMeetings.list.removeAt(position)
-                meetingViewModel.delete(billToRemove)
+                val meetingToRemove = adapterMeetings.list.removeAt(position)
+                meetingViewModel.delete(meetingToRemove)
                 adapterMeetings.notifyItemRemoved(position)
                 adapterMeetings.notifyDataSetChanged()
             }

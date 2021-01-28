@@ -9,13 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.happy.AddShoppingItemActivity
 import com.example.happy.R
 import com.example.happy.ShoppingActivity
 import com.example.happy.model.Shopping
 
 class ShoppingAdapter(val context: Context) : RecyclerView.Adapter<ShoppingAdapter.ViewHolder>() {
 
-    var list: List<Shopping> = emptyList()
+    var list: MutableList<Shopping> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShoppingAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.shopping_item, parent, false)
@@ -30,8 +31,9 @@ class ShoppingAdapter(val context: Context) : RecyclerView.Adapter<ShoppingAdapt
         holder.descShoppingItem.text = shopping.desc
         holder.dateShoppingItem.text = shopping.date
         holder.cardView.setOnClickListener {
-            val intent = Intent(context, ShoppingActivity::class.java)
+            val intent = Intent(context, AddShoppingItemActivity::class.java)
             intent.putExtra("SHOPPING", shopping)
+            intent.putExtra("IS_EDIT_SHOPPING", true)
             context.startActivity(intent)
         }
     }

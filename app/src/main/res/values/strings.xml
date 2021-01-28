@@ -65,6 +65,9 @@
     <string name="rep_profile_address">Endereço da República</string>
     <string name="rep_profile_toolbar_title">Perfil da República</string>
     <string name="member_remove">Remover Membro</string>
+    <string name="buy_meeting_app_bar_title_edit">Comprar</string>
+    <string name="btn_buy_shopping_item">Comprar</string>
+    <string name="add_shopping_item_price_title">Preço</string>
 
     <string-array name="states">
         <item>Acre (AC)</item>

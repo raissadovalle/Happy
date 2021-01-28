@@ -2,6 +2,7 @@ package com.example.happy.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.happy.model.Notification
@@ -14,4 +15,7 @@ interface NotificationDAO {
 
     @Insert
     fun insert(notification: Notification)
+
+    @Delete
+    fun delete(notification: Notification)
 }
