@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.ShoppingAdapter
 import com.example.happy.repository.ShoppingRepository
+import com.example.happy.viewmodel.MemberViewModel
 import com.example.happy.viewmodel.ShoppingViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -21,6 +22,7 @@ class ShoppingActivity : AppCompatActivity() {
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerShoppingItens: RecyclerView
     val shoppingViewModel by viewModels<ShoppingViewModel>()
+    val memberViewModel by viewModels<MemberViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,21 +43,31 @@ class ShoppingActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        recyclerShoppingItens = findViewById(R.id.rv_shopping)
-
-        val adapterShoppingItens = ShoppingAdapter(this)
-
-        shoppingViewModel.getShoppingByRepId("1").observe(this, Observer{
-            adapterShoppingItens.list = it
-            adapterShoppingItens.notifyDataSetChanged()
-        }) //TODO repid
-
-        recyclerShoppingItens.adapter = adapterShoppingItens
-        recyclerShoppingItens.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true;
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+
+        recyclerShoppingItens = findViewById(R.id.rv_shopping)
+
+        val adapterShoppingItens = ShoppingAdapter(this)
+
+        memberViewModel.isLogged().observe(this, Observer {
+            it?.let {
+                shoppingViewModel.getShoppingByRepId(it.repId!!).observe(this, Observer{ it2 ->
+                    adapterShoppingItens.list = it2
+                    adapterShoppingItens.notifyDataSetChanged()
+                })
+            }
+        })
+
+        recyclerShoppingItens.adapter = adapterShoppingItens
+        recyclerShoppingItens.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 }

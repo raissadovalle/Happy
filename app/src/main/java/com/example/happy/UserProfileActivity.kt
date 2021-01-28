@@ -6,16 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.preference.PreferenceManager
+import com.example.happy.model.Member
 import com.example.happy.viewmodel.MemberViewModel
 import com.google.android.material.textfield.TextInputEditText
 import java.io.File
@@ -35,7 +33,8 @@ class UserProfileActivity : AppCompatActivity() {
     lateinit var memberProfileGraduate: TextInputEditText
     lateinit var memberProfileCelphone: TextInputEditText
     lateinit var memberProfileHometownState: Spinner
-
+    lateinit var editMember: Member
+    lateinit var updateButtom: Button
     val REQUEST_TAKE_PHOTO = 1
 
     private val memberViewModel by viewModels<MemberViewModel>()
@@ -59,26 +58,31 @@ class UserProfileActivity : AppCompatActivity() {
         memberProfileGraduate = findViewById(R.id.input_graduate)
         memberProfileHometownState = findViewById(R.id.sp_state)
         memberProfileCelphone = findViewById(R.id.input_celNumber)
-
+        updateButtom = findViewById(R.id.btn_user_update)
         imageProfile = findViewById(R.id.iv_profile_image)
         imageProfile.setOnClickListener{ takePicture() }
 
+        updateButtom.setOnClickListener { update() }
+
         val profileImage = PreferenceManager.getDefaultSharedPreferences(this).getString(MediaStore.EXTRA_OUTPUT, null)
-        if(profileImage != null) {
-            photoURI = Uri.parse(profileImage)
-            imageProfile.setImageURI(photoURI)
-        }
-        else {
+        //if(profileImage != null) {
+        //    photoURI = Uri.parse(profileImage)
+       //     imageProfile.setImageURI(photoURI)
+       // }
+        //else {
+           // photoURI = Uri.parse("/")
             imageProfile.setImageResource(R.mipmap.ic_launcher_round)
-        }
+        //}
 
         memberViewModel.isLogged().observe(this, Observer {
             if(it != null) {
+                editMember = it
                 memberProfileFullName.setText(it.name)
                 memberProfileHometown.setText(it.hometown)
                 memberProfileCollege.setText(it.college)
                 memberProfileGraduate.setText(it.graduate)
                 memberProfileCelphone.setText(it.celNumber)
+                //imageProfile.setImageURI(Uri.parse(it.image))
                 resources.getStringArray(R.array.states).asList().indexOf(it.hometownState).let {
                     memberProfileHometownState.setSelection(it)
                 }
@@ -88,6 +92,33 @@ class UserProfileActivity : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    fun update() {
+        if(memberProfileFullName.text.toString().isNullOrEmpty()) {
+            Toast.makeText(this,"Preencha ao menos o nome", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            editMember.apply {
+                this.name = memberProfileFullName.text.toString()
+                this.hometown = memberProfileHometown.text.toString()
+                this.hometownState = resources.getStringArray(R.array.states)[memberProfileHometownState.selectedItemPosition]
+                this.college = memberProfileCollege.text.toString()
+                this.graduate = memberProfileGraduate.text.toString()
+                this.celNumber = memberProfileCelphone.text.toString()
+                //this.image = photoURI.toString()
+
+                memberViewModel.updateMember(this)
+                val intent = Intent(this@UserProfileActivity, MainActivity::class.java)
+                intent.change()
+            }
+        }
+    }
+
+    fun Intent.change()
+    {
+        startActivity(this)
+        finish();
     }
 
     override fun onSupportNavigateUp(): Boolean {

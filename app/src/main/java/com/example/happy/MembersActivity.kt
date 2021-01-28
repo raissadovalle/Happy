@@ -6,11 +6,16 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.MemberAdapter
+import com.example.happy.model.Member
+import com.example.happy.repository.MemberRepository
 import com.example.happy.viewmodel.MemberViewModel
+import com.example.happy.viewmodel.MemberViewModel.Companion.MEMBER_ID
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MembersActivity : AppCompatActivity() {
@@ -20,6 +25,7 @@ class MembersActivity : AppCompatActivity() {
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerMembers: RecyclerView
     val memberViewModel by viewModels<MemberViewModel>()
+    lateinit var memberRepository: MemberRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,22 +45,33 @@ class MembersActivity : AppCompatActivity() {
             val intent = Intent(this, AddNewMemberActivity::class.java)
             startActivity(intent)
         }
-
-        recyclerMembers = findViewById(R.id.rv_members)
-
-        val adapterMembers = MemberAdapter(this)
-
-        memberViewModel.getMemberByRepId("1").observe(this, Observer{
-            adapterMembers.list = it
-            adapterMembers.notifyDataSetChanged()
-        }) //TODO repId
-
-        recyclerMembers.adapter = adapterMembers
-        recyclerMembers.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true;
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        recyclerMembers = findViewById(R.id.rv_members)
+
+        val adapterMembers = MemberAdapter(this)
+
+        var memberId: String?
+        var member : Member
+
+        PreferenceManager.getDefaultSharedPreferences(application).let { memberId = it.getString(MEMBER_ID, null) }
+        memberRepository = MemberRepository(application)
+        member = memberRepository.loadMemberByIdNoLiveData(memberId!!)
+
+        memberViewModel.getMemberByRepId(member.repId!!).observe(this, Observer{
+            adapterMembers.list = it
+            adapterMembers.notifyDataSetChanged()
+        })
+
+        recyclerMembers.adapter = adapterMembers
+        recyclerMembers.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 }

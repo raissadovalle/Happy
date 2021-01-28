@@ -16,13 +16,18 @@ class MemberViewModel (application: Application) : AndroidViewModel(application)
 
     fun createMember(member: Member) = memberRepository.insert(member)
 
+    fun updateMember(member: Member) = memberRepository.update(member)
+
+    fun enterRep(member: Member) = memberRepository.enterRep(member)
+
     fun login(email: String, password: String) : MutableLiveData<Member> {
         return MutableLiveData(
-            memberRepository.login(email, password).also { member ->
-                PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
-                    it.edit().putString(MEMBER_ID, member.id).apply()
+                memberRepository.login(email, password).also { member ->
+                    PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
+                        if(member != null)
+                            it.edit().putString(MEMBER_ID, member.id).apply()
+                    }
                 }
-            }
         )
     }
 

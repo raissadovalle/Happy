@@ -7,5 +7,5 @@ import java.util.*
 
 @Entity(tableName = "reps")
 data class Rep(@PrimaryKey val id: String = UUID.randomUUID().toString(),
-               val name: String,
-               val address: String?) : Serializable
+               var name: String,
+               var address: String?) : Serializable

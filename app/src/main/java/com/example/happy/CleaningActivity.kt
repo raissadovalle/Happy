@@ -14,6 +14,7 @@ import com.example.happy.adapter.CleaningAdapter
 import com.example.happy.model.*
 import com.example.happy.repository.CleaningRepository
 import com.example.happy.viewmodel.CleaningViewModel
+import com.example.happy.viewmodel.MemberViewModel
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -24,6 +25,7 @@ class CleaningActivity : AppCompatActivity() {
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerCleaningRooms: RecyclerView
     private val cleaningViewModel by viewModels<CleaningViewModel>()
+    private val memberViewModel by viewModels<MemberViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +45,30 @@ class CleaningActivity : AppCompatActivity() {
             val intent = Intent(this, AddCleaningRoomActivity::class.java)
             startActivity(intent)
         }
-
-        recyclerCleaningRooms = findViewById(R.id.rv_cleaning)
-
-        val adapterCleaning = CleaningAdapter(this)
-
-        cleaningViewModel.getCleaningByRepId("1").observe(this, Observer{
-            adapterCleaning.list = it
-            adapterCleaning.notifyDataSetChanged()
-        }) //TODO repid
-
-        recyclerCleaningRooms.adapter = adapterCleaning
-        recyclerCleaningRooms.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true;
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        recyclerCleaningRooms = findViewById(R.id.rv_cleaning)
+
+        val adapterCleaning = CleaningAdapter(this)
+
+        memberViewModel.isLogged().observe(this, Observer {
+            it?.let {
+                cleaningViewModel.getCleaningByRepId(it.repId!!).observe(this, Observer{ it2 ->
+                    adapterCleaning.list = it2
+                    adapterCleaning.notifyDataSetChanged()
+                })
+            }
+        })
+
+        recyclerCleaningRooms.adapter = adapterCleaning
+        recyclerCleaningRooms.layoutManager = LinearLayoutManager(this,  LinearLayoutManager.VERTICAL, false)
     }
 }

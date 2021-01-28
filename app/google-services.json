@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "45980258800",
+    "project_id": "happy-2021-raissa",
+    "storage_bucket": "happy-2021-raissa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45980258800:android:e538d49e002e881549cd35",
+        "android_client_info": {
+          "package_name": "com.example.happy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45980258800-ldtejdlvqgcoglktun1t2f524ug5cef4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzYVx3E_zNozVl9h-dFr53dcd5IbmXYgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45980258800-ldtejdlvqgcoglktun1t2f524ug5cef4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

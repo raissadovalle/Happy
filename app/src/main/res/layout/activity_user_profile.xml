@@ -154,7 +154,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button android:id="@+id/btn_user_register"
+            <Button android:id="@+id/btn_user_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/user_profile_save"

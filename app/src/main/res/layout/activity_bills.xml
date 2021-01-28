@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/menu_toolbar_layout"
+        <include
+            layout="@layout/menu_toolbar_bills_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
@@ -29,7 +30,9 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_months"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="true">
         </com.google.android.material.chip.ChipGroup>
 
     </androidx.core.widget.NestedScrollView>

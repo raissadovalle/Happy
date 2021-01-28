@@ -33,8 +33,14 @@ class LoginActivity : AppCompatActivity() {
                 if(it == null)
                     Toast.makeText(applicationContext, getString(R.string.login_message), Toast.LENGTH_SHORT).show()
                 else {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.change()
+                    if(it.repId.isNullOrBlank()) {
+                        val intent = Intent(this, AddNewRepOrEnterExistingActivity::class.java)
+                        intent.change()
+                    }
+                    else {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.change()
+                    }
                 }
             })
         }

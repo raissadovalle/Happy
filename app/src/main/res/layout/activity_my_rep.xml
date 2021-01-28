@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MyRepActivity"
-    android:background="@color/black">
+    android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
-            layout="@layout/menu_toolbar_layout"
+            layout="@layout/menu_toolbar_my_rep_layout"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize" />
 
@@ -25,6 +25,7 @@
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
         android:layout_below="@id/app_bar_layout">
 
         <GridLayout
@@ -44,12 +45,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_bills"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="1dp"
-                    android:backgroundTint="@color/primary_green"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_green"
                     android:clickable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
@@ -66,14 +66,14 @@
                             android:layout_width="80dp"
                             android:layout_height="75dp"
                             android:src="@drawable/ic_baseline_attach_money_24"
-                            app:tint="@color/black" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:text="@string/bills_my_rep_activity"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -86,12 +86,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_cleaning"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="5"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="1dp"
-                    android:backgroundTint="@color/primary_green"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_green"
                     android:clickable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
@@ -101,20 +100,20 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="1dp">
+                        android:padding="4dp">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="75dp"
                             android:src="@drawable/ic_broom"
-                            app:tint="@color/black" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:text="@string/cleaning_my_rep_activity"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -127,12 +126,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_members"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="1dp"
-                    android:backgroundTint="@color/primary_green"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_green"
                     android:clickable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
@@ -148,14 +146,14 @@
                             android:layout_width="80dp"
                             android:layout_height="75dp"
                             android:src="@drawable/ic_baseline_people_24"
-                            app:tint="@color/black" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:text="@string/members_my_rep_activity"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -168,12 +166,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_meetings"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="1dp"
-                    android:backgroundTint="@color/primary_green"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_green"
                     android:clickable="true"
                     android:focusable="true"
                     app:cardCornerRadius="12dp"
@@ -184,20 +181,20 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="1dp">
+                        android:padding="4dp">
 
                         <ImageView
                             android:layout_width="80dp"
                             android:layout_height="75dp"
                             android:src="@drawable/ic_meeting"
-                            app:tint="@color/black" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:text="@string/meetings_my_rep_activity"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -210,11 +207,11 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_shopping"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="120dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/primary_green"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/dark_green"
                     android:clickable="true"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="6dp">
@@ -230,14 +227,14 @@
                             android:layout_width="80dp"
                             android:layout_height="75dp"
                             android:src="@drawable/ic_baseline_shopping_cart_24"
-                            app:tint="@color/black" />
+                            app:tint="@color/white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
                             android:text="@string/shopping_my_rep_activity"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

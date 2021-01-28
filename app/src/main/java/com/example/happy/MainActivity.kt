@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.happy.adapter.NotificationAdapter
 import com.example.happy.viewmodel.MemberViewModel
 import com.example.happy.viewmodel.NotificationViewModel
+import com.example.happy.viewmodel.RepViewModel
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var recyclerNotifications: RecyclerView
     private val notificationViewModel by viewModels<NotificationViewModel>()
     private val memberViewModel by viewModels<MemberViewModel>()
+    private val repViewModel by viewModels<RepViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_sign_out -> {
                 memberViewModel.logout()
+                repViewModel.removeRepId()
                 finish()
                 val intent = Intent(this, SplashActivity::class.java)
                 startActivity(intent)
@@ -120,12 +123,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onResume()
 
         val profileImage = PreferenceManager.getDefaultSharedPreferences(this).getString(MediaStore.EXTRA_OUTPUT, null)
-        if(profileImage != null) {
-            profilePicture.setImageURI(Uri.parse(profileImage))
-        }
-        else {
+//        if(profileImage != null) {
+//            profilePicture.setImageURI(Uri.parse(profileImage))
+//        }
+//        else {
             profilePicture.setImageResource(R.mipmap.ic_launcher_round)
-        }
+//        }
 
         recyclerNotifications = findViewById(R.id.rv_notifications)
 

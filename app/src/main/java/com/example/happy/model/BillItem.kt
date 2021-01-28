@@ -12,7 +12,8 @@ data class BillItem(@PrimaryKey val id: String = UUID.randomUUID().toString(),
                     val desc: String,
                     val price: Double,
                     val type: BillType,
-                    val date: String) : Serializable {
+                    val date: String,
+                    var isClosed: Boolean) : Serializable {
 
                     enum class BillType(val message: String) {
                         RENT("Aluguel"),

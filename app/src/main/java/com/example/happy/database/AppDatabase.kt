@@ -14,7 +14,7 @@ import com.example.happy.model.*
             Member::class,
             Notification::class,
             Shopping::class,
-            Rep::class], version = 1)
+            Rep::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -35,11 +35,10 @@ abstract class AppDatabase : RoomDatabase() {
             return INSTANSE?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java,
-                    "happy_database")
-                    .fallbackToDestructiveMigration()
+                    AppDatabase::class.java, "happy_database.db")
+                    //.fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
-                    .createFromAsset("happy_database.db")
+                   // .createFromAsset("happy_database.db")
                     .build()
                     INSTANSE = instance
 

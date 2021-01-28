@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.happy.MemberProfileActivity
 import com.example.happy.MembersActivity
 import com.example.happy.R
 
@@ -32,7 +33,7 @@ class MemberAdapter(val context: Context) : RecyclerView.Adapter<MemberAdapter.V
         holder.emailMember.text = member.email
         holder.imageView.setImageResource(R.drawable.ic_baseline_attach_money_24) //TODO colocar foto de perfil
         holder.cardView.setOnClickListener {
-            val intent = Intent(context, MembersActivity::class.java)
+            val intent = Intent(context, MemberProfileActivity::class.java)
             intent.putExtra("MEMBER", member)
             context.startActivity(intent)
         }

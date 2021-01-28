@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Happy">
-        <activity android:name=".AddMeetingActivity"></activity>
+        <activity android:name=".MemberProfileActivity"></activity>
+        <activity android:name=".RepProfileActivity" />
+        <activity android:name=".CloseMonthActivity" />
+        <activity android:name=".EnterExistingActivity" />
+        <activity android:name=".AddNewRepOrEnterExistingActivity" />
+        <activity android:name=".AddMeetingActivity" />
         <activity android:name=".AddShoppingItemActivity" />
         <activity android:name=".AddCleaningRoomActivity" />
         <activity android:name=".AddNewMemberActivity" />
@@ -29,7 +34,7 @@
         <activity android:name=".MyRepActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,16 +44,14 @@
         </activity>
 
         <provider
-            android:authorities="${applicationId}.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>
