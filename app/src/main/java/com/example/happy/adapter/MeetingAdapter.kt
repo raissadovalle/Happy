@@ -33,6 +33,7 @@ class MeetingAdapter(val context: Context) : RecyclerView.Adapter<MeetingAdapter
             val intent = Intent(context, AddMeetingActivity::class.java)
             intent.putExtra("MEETING", meeting)
             intent.putExtra("IS_EDIT_MEETING", true)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
     }

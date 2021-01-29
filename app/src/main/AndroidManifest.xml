@@ -11,21 +11,21 @@
         android:theme="@style/Theme.Happy">
         <activity android:name=".ResetPasswordActivity"></activity>
         <activity android:name=".AnswerSecretQuestionActivity" />
-        <activity android:name=".MemberProfileActivity" />
-        <activity android:name=".RepProfileActivity" />
+        <activity android:launchMode="singleTask" android:name=".MemberProfileActivity" />
+        <activity android:launchMode="singleTask" android:name=".RepProfileActivity" />
         <activity android:name=".CloseMonthActivity" />
         <activity android:name=".EnterExistingActivity" />
         <activity android:name=".AddNewRepOrEnterExistingActivity" />
-        <activity android:name=".AddMeetingActivity" />
-        <activity android:name=".AddShoppingItemActivity" />
-        <activity android:name=".AddCleaningRoomActivity" />
-        <activity android:name=".AddNewMemberActivity" />
-        <activity android:name=".AddEditBillActivity" />
-        <activity android:name=".ShoppingActivity" />
-        <activity android:name=".MembersActivity" />
-        <activity android:name=".MeetingsActivity" />
-        <activity android:name=".CleaningActivity" />
-        <activity android:name=".BillsActivity" />
+        <activity android:launchMode="singleTask" android:name=".AddMeetingActivity" />
+        <activity android:launchMode="singleTask" android:name=".AddShoppingItemActivity" />
+        <activity android:launchMode="singleTask" android:name=".AddCleaningRoomActivity" />
+        <activity android:launchMode="singleTask" android:name=".AddNewMemberActivity" />
+        <activity android:launchMode="singleTask" android:name=".AddEditBillActivity" />
+        <activity android:launchMode="singleTask" android:name=".ShoppingActivity" />
+        <activity android:launchMode="singleTask" android:name=".MembersActivity" />
+        <activity android:launchMode="singleTask" android:name=".MeetingsActivity" />
+        <activity android:launchMode="singleTask" android:name=".CleaningActivity" />
+        <activity android:launchMode="singleTask" android:name=".BillsActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".RegisterRepActivity" />
         <activity android:name=".RegisterUserActivity" />

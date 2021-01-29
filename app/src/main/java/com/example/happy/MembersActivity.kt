@@ -43,7 +43,9 @@ class MembersActivity : AppCompatActivity() {
         floatingButton = findViewById(R.id.fb_members)
         floatingButton.setOnClickListener {
             val intent = Intent(this, AddNewMemberActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
     }
 

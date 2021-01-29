@@ -22,7 +22,7 @@ class RepViewModel (application: Application) : AndroidViewModel(application) {
         return MutableLiveData(
             repRepository.loadRepByNameAndAddress(name, address).also { rep ->
                 PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
-                    if(rep != null)
+                    if(rep.id.isNotEmpty())
                         it.edit().putString(RepViewModel.REP_ID, rep.id).apply()
                 }
             }

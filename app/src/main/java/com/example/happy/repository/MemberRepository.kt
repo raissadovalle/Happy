@@ -17,6 +17,8 @@ class MemberRepository(application: Application) {
 
     fun loadMembersByRepId(repId: String) = memberDao.loadMembersByRep(repId)
 
+    fun loadMembersByRepIdNoLiveData(repId: String) = memberDao.loadMembersByRepNoLiveData(repId)
+
     fun loadMembersByEmail(email: String) = memberDao.loadMembersByEmail(email)
 
     fun login(email: String, password:String) = memberDao.login(email, password)

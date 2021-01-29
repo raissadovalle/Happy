@@ -113,6 +113,7 @@ class AddCleaningRoomActivity : AppCompatActivity() {
             notificationViewModel.create(notification)
             sendNotification("O cômodo ${cleaning.desc} foi limpo em ${currentDate} por ${it.name}")
             val intent = Intent(this, CleaningActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.change()
         })
     }
@@ -167,6 +168,7 @@ class AddCleaningRoomActivity : AppCompatActivity() {
                 notificationViewModel.create(notification)
                 sendNotification("O cômodo ${cleaning.desc} foi adicionado ao Quadro de Limpeza em ${currentDate} por ${it.name}")
                 val intent = Intent(this, CleaningActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.change()
             })
         }
@@ -177,7 +179,7 @@ class AddCleaningRoomActivity : AppCompatActivity() {
     }
 
     fun editCleaning(editCleaning: Cleaning) {
-        if(chipGroupFrequency.checkedChipId != View.NO_ID && descCleaning.text.toString() != null)
+        if(chipGroupFrequency.checkedChipId != View.NO_ID && descCleaning.text.toString().isNotEmpty())
         {
             var chipValue = Cleaning.Frequency.WEEKLY;
             val chip = chipGroupFrequency.checkedChipId
@@ -203,6 +205,7 @@ class AddCleaningRoomActivity : AppCompatActivity() {
                 notificationViewModel.create(notification)
                 sendNotification("O cômodo ${cleaning.desc} foi editado em ${currentDate} por ${it.name}")
                 val intent = Intent(this, CleaningActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 intent.change()
             })
         }

@@ -144,6 +144,7 @@ class AddEditBillActivity : AppCompatActivity() {
                 notificationViewModel.create(notification)
                 sendNotification("Conta ${bill.desc} de ${format.format(bill.price)} adicionada às Contas em ${currentDate} por ${it.name}")
                 val intent = Intent(this, BillsActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.change()
             })
         }
@@ -183,6 +184,7 @@ class AddEditBillActivity : AppCompatActivity() {
                 notificationViewModel.create(notification)
                 sendNotification("Conta ${bill.desc} de ${bill.price} foi editada em ${currentDate} por ${it.name}")
                 val intent = Intent(this, BillsActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.change()
             })
         }

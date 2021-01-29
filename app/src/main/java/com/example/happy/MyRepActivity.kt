@@ -30,6 +30,7 @@ class MyRepActivity : AppCompatActivity() {
         buttonToolbar = findViewById(R.id.iv_my_rep)
         buttonToolbar.setOnClickListener {
             val intent = Intent(this, RepProfileActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             finish()
         }

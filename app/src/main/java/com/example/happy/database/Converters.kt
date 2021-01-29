@@ -27,5 +27,5 @@ class Converters {
     fun fromFrequency(frequency: Cleaning.Frequency) : String = frequency.toString()
 
     @TypeConverter
-    fun toFrequency(string: String) :Cleaning.Frequency = Cleaning.Frequency.valueOf(string)
+    fun toFrequency(string: String) : Cleaning.Frequency = Cleaning.Frequency.valueOf(string)
 }

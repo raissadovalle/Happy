@@ -60,7 +60,9 @@ class MeetingsActivity : AppCompatActivity() {
         floatingButton.setOnClickListener {
             val intent = Intent(this, AddMeetingActivity::class.java)
             intent.putExtra("IS_EDIT_MEETING", false)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
     }
 

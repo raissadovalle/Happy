@@ -38,6 +38,7 @@ class EnterExistingActivity : AppCompatActivity() {
     lateinit var notificationChannel: NotificationChannel
     lateinit var builder : android.app.Notification.Builder
     private val channelId = "com.example.happy.notification"
+    private var i = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,21 +54,24 @@ class EnterExistingActivity : AppCompatActivity() {
                 if(repRepository.loadRepByIdNoLiveData(id))
                 {
                     memberViewModel.isLogged().observe(this, Observer{
-                        it.repId = id;
-                        memberViewModel.updateMember(it)
-                        val sdf = SimpleDateFormat("dd/MM/yyyy")
-                        val currentDate = sdf.format(Date())
-                        val notification = Notification(memberId = id,
+                        if(i == 0) {
+                            it.repId = id;
+                            memberViewModel.updateMember(it)
+                            val sdf = SimpleDateFormat("dd/MM/yyyy")
+                            val currentDate = sdf.format(Date())
+                            val notification = Notification(memberId = id,
                                 component = Notification.Components.MEMBERS,
                                 content = "${it.name} entrou na sua República em ${currentDate}",
                                 date = currentDate.toString() )
-                        notificationViewModel.create(notification)
-                        sendNotification("${it.name} entrou na sua República em ${currentDate}")
-                        PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
-                            if(id != null)
-                                it.edit().putString(RepViewModel.REP_ID, id).apply()
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.change()
+                            notificationViewModel.create(notification)
+                            i++
+                            sendNotification("${it.name} entrou na sua República em ${currentDate}")
+                            PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
+                                if(id.isNotEmpty())
+                                    it.edit().putString(RepViewModel.REP_ID, id).apply()
+                                val intent = Intent(this, MainActivity::class.java)
+                                intent.change()
+                            }
                         }
                     })
                 }

@@ -40,7 +40,7 @@
     <string name="add_cleaning_room_desc_title">Descrição</string>
     <string name="add_cleaning_room_frequency_title">Frequência em dias</string>
     <string name="btn_save_cleaning_room">Salvar</string>
-    <string name="cleaning_toolbar_title">Quadro de Limpeza</string>
+    <string name="cleaning_toolbar_title">Limpeza</string>
     <string name="meetings_toolbar_title">Reuniões</string>
     <string name="shopping_toolbar_title">Compras</string>
     <string name="add_meeting_subject_title">Assunto</string>

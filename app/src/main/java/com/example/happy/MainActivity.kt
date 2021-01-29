@@ -138,10 +138,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         memberViewModel.isLogged().observe(this, Observer {
             it?.let {
                 textLogin.text = it.name
-                notificationViewModel.getNotificationByMemberId(it.repId!!).observe(this, Observer{ it2 ->
-                    adapterNotifications.list = it2
-                    adapterNotifications.notifyDataSetChanged()
-                })
+                if(it.repId!!.isNotEmpty()) {
+                    notificationViewModel.getNotificationByMemberId(it.repId!!).observe(this, Observer{ it2 ->
+                        adapterNotifications.list = it2.sortedByDescending { r -> r.date  }
+                        adapterNotifications.notifyDataSetChanged()
+                    })
+                }
+                else {
+                    memberViewModel.logout()
+                    repViewModel.removeRepId()
+                    finish()
+                    val intent = Intent(this, SplashActivity::class.java)
+                    startActivity(intent)
+                }
             }
         })
 

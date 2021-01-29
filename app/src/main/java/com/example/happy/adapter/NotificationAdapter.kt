@@ -27,7 +27,11 @@ class NotificationAdapter (val context: Context) : RecyclerView.Adapter<Notifica
     override fun onBindViewHolder(holder: NotificationAdapter.ViewHolder, position: Int) {
         val notification = list[position]
         holder.contentNotificationItem.text = notification.content
-        holder.imageView.setImageResource(R.drawable.ic_baseline_home_24) //TODO mudança de icones pelos components
+        if(notification.component == Notification.Components.CLEANINGS)holder.imageView.setImageResource(R.drawable.ic_broom)
+        else if(notification.component == Notification.Components.BILLS)holder.imageView.setImageResource(R.drawable.ic_baseline_attach_money_24)
+        else if(notification.component == Notification.Components.SHOPPINGS) holder.imageView.setImageResource(R.drawable.ic_baseline_shopping_cart_24)
+        else if(notification.component == Notification.Components.MYREP) holder.imageView.setImageResource(R.drawable.ic_baseline_home_24)
+        else if(notification.component == Notification.Components.MEMBERS)holder.imageView.setImageResource(R.drawable.ic_baseline_people_24)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

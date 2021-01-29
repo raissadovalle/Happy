@@ -91,7 +91,9 @@ class BillsActivity : AppCompatActivity() {
         floatingButton.setOnClickListener {
             val intent = Intent(this, AddEditBillActivity::class.java)
             intent.putExtra("IS_EDIT_BILL", false)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -169,7 +171,7 @@ class BillsActivity : AppCompatActivity() {
             }
         }
         var sortedList: List<BillItem>
-        sortedList = list2.sortedBy { r -> r.date }
+        sortedList = list2.sortedByDescending { r -> LocalDate.parse(r.date,formatter) }
         return sortedList.toMutableList()
     }
 

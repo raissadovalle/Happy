@@ -35,6 +35,7 @@ class MemberAdapter(val context: Context) : RecyclerView.Adapter<MemberAdapter.V
         holder.cardView.setOnClickListener {
             val intent = Intent(context, MemberProfileActivity::class.java)
             intent.putExtra("MEMBER", member)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
     }

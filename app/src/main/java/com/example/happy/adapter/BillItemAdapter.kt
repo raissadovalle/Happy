@@ -47,6 +47,7 @@ class BillItemAdapter(val context: Context) : RecyclerView.Adapter<BillItemAdapt
                 val intent = Intent(context, AddEditBillActivity::class.java)
                 intent.putExtra("IS_EDIT_BILL", true)
                 intent.putExtra("BILL", bill)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             }
         }

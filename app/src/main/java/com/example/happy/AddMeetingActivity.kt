@@ -88,7 +88,7 @@ class AddMeetingActivity : AppCompatActivity() {
     }
 
     fun addMeeting() {
-        if(subject.text.toString() != null && verdict.text.toString() != null)
+        if(subject.text.toString().isNotEmpty() && verdict.text.toString().isNotEmpty())
         {
             memberViewModel.isLogged().observe(this, androidx.lifecycle.Observer {
                 val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -117,7 +117,7 @@ class AddMeetingActivity : AppCompatActivity() {
     }
 
     fun editMeeting(editMeeting: Meeting) {
-        if(subject.text.toString() != null && verdict.text.toString() != null)
+        if(subject.text.toString().isNotEmpty() && verdict.text.toString().isNotEmpty())
         {
             memberViewModel.isLogged().observe(this, androidx.lifecycle.Observer {
                 val sdf = SimpleDateFormat("dd/MM/yyyy")

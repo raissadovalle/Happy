@@ -45,6 +45,7 @@ class CleaningAdapter(val context: Context) : RecyclerView.Adapter<CleaningAdapt
             val intent = Intent(context, AddCleaningRoomActivity::class.java)
             intent.putExtra("IS_EDIT_CLEANING", true)
             intent.putExtra("CLEANING", cleaningRoom)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
     }

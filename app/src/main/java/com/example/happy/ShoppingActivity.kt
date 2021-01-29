@@ -62,7 +62,9 @@ class ShoppingActivity : AppCompatActivity() {
         floatingButton.setOnClickListener {
             val intent = Intent(this, AddShoppingItemActivity::class.java)
             intent.putExtra("IS_EDIT_SHOPPING", false)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+            finish()
         }
 
     }

@@ -25,7 +25,7 @@ import com.example.happy.model.Shopping
 import com.example.happy.viewmodel.*
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.lang.Double
+import java.lang.Double.parseDouble
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -95,7 +95,7 @@ class AddShoppingItemActivity : AppCompatActivity() {
     }
 
     fun addShoppingItem() {
-        if(desc.text.toString() != null)
+        if(desc.text.toString().isNotEmpty())
         {
             memberViewModel.isLogged().observe(this, androidx.lifecycle.Observer {
                 val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -112,6 +112,7 @@ class AddShoppingItemActivity : AppCompatActivity() {
                 notificationViewModel.create(notification)
                 sendNotification("Item ${shopping.desc} adicionado às Compras em ${currentDate} por ${it.name}")
                 val intent = Intent(this, ShoppingActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.change()
             })
         }
@@ -122,7 +123,7 @@ class AddShoppingItemActivity : AppCompatActivity() {
     }
 
     fun buyShoppingItem(editShopping: Shopping) {
-        if(price.text.toString() != null)
+        if(price.text.toString().isNotEmpty())
         {
             memberViewModel.isLogged().observe(this, androidx.lifecycle.Observer {
                 val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -131,20 +132,21 @@ class AddShoppingItemActivity : AppCompatActivity() {
                         repId = it.repId!!,
                         desc = desc.text.toString(),
                         type = BillItem.BillType.SHOPPING,
-                        price = Double.parseDouble(price.text.toString()),
+                        price = parseDouble(price.text.toString()),
                         date = currentDate.toString(),
                         isClosed = false)
                 val myPlace = Locale( "pt", "BR" )
                 val format: NumberFormat = NumberFormat.getCurrencyInstance(myPlace)
                 val notification = Notification(memberId = it.repId!!,
                         component = Notification.Components.SHOPPINGS,
-                        content = "Item ${format.format(bill.desc)} foi comprado por ${it.name} e adicionado as Contas em ${currentDate}",
+                        content = "Item ${bill.desc} foi comprado por ${format.format(bill.price)} por ${it.name} e adicionado as Contas em ${currentDate}",
                         date = currentDate.toString() )
                 notificationViewModel.create(notification)
-                sendNotification("Item ${format.format(bill.desc)} foi comprado por ${it.name} e adicionado as Contas em ${currentDate}")
+                sendNotification("Item ${bill.desc} foi comprado por ${format.format(bill.price)} por ${it.name} e adicionado as Contas em ${currentDate}")
                 shoppingViewModel.delete(editShopping)
                 billViewModel.createBill(bill)
                 val intent = Intent(this, ShoppingActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 intent.change()
             })
         }

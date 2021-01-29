@@ -28,7 +28,7 @@ class MemberViewModel (application: Application) : AndroidViewModel(application)
         return MutableLiveData(
                 memberRepository.login(email, password).also { member ->
                     PreferenceManager.getDefaultSharedPreferences(getApplication()).let {
-                        if(member != null)
+                        if(member.id.isNotEmpty())
                             it.edit().putString(MEMBER_ID, member.id).apply()
                     }
                 }

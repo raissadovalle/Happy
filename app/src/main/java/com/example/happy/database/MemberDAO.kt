@@ -29,6 +29,9 @@ interface MemberDAO {
     @Query("SELECT * FROM members WHERE repId = :repId")
     fun loadMembersByRep(repId: String) : LiveData<List<Member>>
 
+    @Query("SELECT * FROM members WHERE repId = :repId")
+    fun loadMembersByRepNoLiveData(repId: String) : MutableList<Member>
+
     @Query("SELECT COUNT(*) FROM members WHERE repId = :repId")
     fun countMembersByRep(repId: String?) : Int
 

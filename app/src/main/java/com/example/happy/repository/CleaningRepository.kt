@@ -9,11 +9,15 @@ class CleaningRepository(application: Application) {
 
     private val cleaningDao = AppDatabase.getDatabase(application).cleaningDao()
 
-    fun loadShoppingsByRepId(repId: String) = cleaningDao.loadCleaningByRep(repId)
+    fun loadCleaningByRep(repId: String) = cleaningDao.loadCleaningByRep(repId)
+
+    fun loadCleaningByRepNoLiveData(repId: String) = cleaningDao.loadCleaningByRepNoLiveData(repId)
 
     fun updateLastCleaning(cleaning: Cleaning) = cleaningDao.updateLastCleaned(cleaning)
 
     fun insert(cleaning: Cleaning) = cleaningDao.insert(cleaning)
+
+   //fun insert(cleaning: Cleaning) = cleaningDao.insert(cleaning.desc, cleaning.repId, cleaning.frequency.name)
 
     fun update(cleaning: Cleaning) = cleaningDao.update(cleaning)
 

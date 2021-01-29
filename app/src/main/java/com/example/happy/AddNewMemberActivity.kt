@@ -53,7 +53,7 @@ class AddNewMemberActivity : AppCompatActivity() {
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Convite para entrar na República ${it2.name}")
                     intent.putExtra(Intent.EXTRA_TEXT, "Para entrar na República ${it2.name}, faça o seu cadastro no app Happy, clique em entrar em república e digite o código : ${it2.id} \n\nEsperamos você lá! ")
                     intent.setData(Uri.parse("mailto:${emailNewMember.text}"))
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
                     try {
                         startActivity(Intent.createChooser(intent, "Enviar email por..."))
 //                        val i = Intent(this, MembersActivity::class.java)
@@ -62,6 +62,7 @@ class AddNewMemberActivity : AppCompatActivity() {
                     } catch (ex : ActivityNotFoundException) {
                         Toast.makeText(this@AddNewMemberActivity, "Não tem nenhum app de e-mail instalado!", Toast.LENGTH_SHORT).show()
                         val i = Intent(this, MembersActivity::class.java)
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(i)
                         finish()
                     }

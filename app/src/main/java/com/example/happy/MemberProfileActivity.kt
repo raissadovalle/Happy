@@ -1,6 +1,12 @@
 package com.example.happy
 
+import android.app.LauncherActivity
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -13,8 +19,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.happy.model.Member
+import com.example.happy.model.Notification
+import com.example.happy.repository.CleaningRepository
+import com.example.happy.repository.MemberRepository
 import com.example.happy.viewmodel.MemberViewModel
+import com.example.happy.viewmodel.NotificationViewModel
 import com.google.android.material.textfield.TextInputEditText
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MemberProfileActivity : AppCompatActivity() {
 
@@ -31,6 +43,12 @@ class MemberProfileActivity : AppCompatActivity() {
     lateinit var profileMember: Member
     lateinit var removeButtom: Button
     val REQUEST_TAKE_PHOTO = 1
+
+    private val notificationViewModel by viewModels<NotificationViewModel>()
+    lateinit var notificationManager: NotificationManager
+    lateinit var notificationChannel: NotificationChannel
+    lateinit var builder : android.app.Notification.Builder
+    private val channelId = "com.example.happy.notification"
 
     private val memberViewModel by viewModels<MemberViewModel>()
 
@@ -75,12 +93,48 @@ class MemberProfileActivity : AppCompatActivity() {
     }
 
     fun removeMember() {
+        var i = 0
         memberViewModel.isLogged().observe(this, Observer {
-            profileMember.repId = ""
-            memberViewModel.updateMember(profileMember)
-            val intent = Intent(this, MembersActivity::class.java)
-            intent.change()
+            if(i == 0) {
+                i++
+                profileMember.repId = ""
+                memberViewModel.updateMember(profileMember)
+
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                val currentDate = sdf.format(Date())
+                val notification = Notification(memberId = it.repId!!,
+                        component = Notification.Components.MEMBERS,
+                        content = "O membro ${profileMember.name} foi removido por ${it.name} em ${currentDate}",
+                        date = currentDate.toString() )
+                notificationViewModel.create(notification)
+                sendNotification("O membro ${profileMember.name} foi removido por ${it.name} em ${currentDate}")
+                val intent = Intent(this, MembersActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.change()
+            }
         })
+    }
+
+    fun sendNotification(description: String) {
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val intent = Intent(this, LauncherActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_DEFAULT)
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.GREEN
+        notificationChannel.enableVibration(false)
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        builder = android.app.Notification.Builder(this, channelId)
+                .setContentTitle("Happy")
+                .setContentText(description)
+                .setSmallIcon(R .mipmap.ic_launcher_round)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.mipmap.ic_launcher_round))
+                .setContentIntent(pendingIntent)
+
+        notificationManager.notify(Math.random().toInt(), builder.build())
     }
 
     fun Intent.change()

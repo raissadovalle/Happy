@@ -10,7 +10,7 @@ class CleaningViewModel(application: Application) : AndroidViewModel(application
 
     private val cleaningRepository = CleaningRepository(getApplication())
 
-    fun getCleaningByRepId(repId: String) = cleaningRepository.loadShoppingsByRepId(repId)
+    fun getCleaningByRepId(repId: String) = cleaningRepository.loadCleaningByRep(repId)
 
     fun createCleaning(cleaning: Cleaning) = cleaningRepository.insert(cleaning)
 
