@@ -21,6 +21,10 @@ class MemberRepository(application: Application) {
 
     fun login(email: String, password:String) = memberDao.login(email, password)
 
+    fun updatePassword(id: String, password:String) = memberDao.updatePassword(id, password)
+
+    fun loadSecretQuestion(email: String) = memberDao.loadSecretQuestion(email)
+
     fun insert(member: Member) = memberDao.insert(member)
 
     fun update(member: Member) = memberDao.update(member)

@@ -116,7 +116,7 @@ class AddEditBillActivity : AppCompatActivity() {
     }
 
     fun addBill() {
-        if(chipGroupTypes.checkedChipId != View.NO_ID && descBill.text != null && priceBill.text != null)
+        if(chipGroupTypes.checkedChipId != View.NO_ID && descBill.text.toString().isNotEmpty() && priceBill.text.toString().isNotEmpty())
         {
             var chipValue = BillItem.BillType.OTHERS;
             val chip = chipGroupTypes.checkedChipId
@@ -154,13 +154,13 @@ class AddEditBillActivity : AppCompatActivity() {
     }
 
     fun editBill(editBill: BillItem) {
-        if(chipGroupTypes.checkedChipId != View.NO_ID && descBill.text != null && priceBill.text != null)
+        if(chipGroupTypes.checkedChipId != View.NO_ID && descBill.text.toString().isNotEmpty() && priceBill.text.toString().isNotEmpty())
         {
             var chipValue = BillItem.BillType.OTHERS;
             val chip = chipGroupTypes.checkedChipId
             if(chip == 1) chipValue = BillItem.BillType.RENT
-            if(chip == 2) chipValue = BillItem.BillType.WATER
-            if(chip == 3) chipValue = BillItem.BillType.ELECTRICITY
+            if(chip == 3) chipValue = BillItem.BillType.WATER
+            if(chip == 2) chipValue = BillItem.BillType.ELECTRICITY
             if(chip == 4) chipValue = BillItem.BillType.SHOPPING
 
             memberViewModel.isLogged().observe(this, androidx.lifecycle.Observer {

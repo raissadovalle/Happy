@@ -32,6 +32,8 @@ class UserProfileActivity : AppCompatActivity() {
     lateinit var memberProfileCollege: TextInputEditText
     lateinit var memberProfileGraduate: TextInputEditText
     lateinit var memberProfileCelphone: TextInputEditText
+    lateinit var memberProfileSecretAnswer: TextInputEditText
+    lateinit var memberProfileSecretQuetion: Spinner
     lateinit var memberProfileHometownState: Spinner
     lateinit var editMember: Member
     lateinit var updateButtom: Button
@@ -58,6 +60,8 @@ class UserProfileActivity : AppCompatActivity() {
         memberProfileGraduate = findViewById(R.id.input_graduate)
         memberProfileHometownState = findViewById(R.id.sp_state)
         memberProfileCelphone = findViewById(R.id.input_celNumber)
+        memberProfileSecretAnswer = findViewById(R.id.input_secret_answer)
+        memberProfileSecretQuetion = findViewById(R.id.sp_profile_secret_question)
         updateButtom = findViewById(R.id.btn_user_update)
         imageProfile = findViewById(R.id.iv_profile_image)
         imageProfile.setOnClickListener{ takePicture() }
@@ -86,6 +90,10 @@ class UserProfileActivity : AppCompatActivity() {
                 resources.getStringArray(R.array.states).asList().indexOf(it.hometownState).let {
                     memberProfileHometownState.setSelection(it)
                 }
+                resources.getStringArray(R.array.secretQuestions).asList().indexOf(it.secretQuestion.message).let { it2->
+                    memberProfileSecretQuetion.setSelection(it2)
+                }
+                memberProfileSecretAnswer.setText(it.secretAnswer)
             }
             else {
                 startActivity(Intent(this, LoginActivity::class.java))
@@ -95,17 +103,19 @@ class UserProfileActivity : AppCompatActivity() {
     }
 
     fun update() {
-        if(memberProfileFullName.text.toString().isNullOrEmpty()) {
-            Toast.makeText(this,"Preencha ao menos o nome", Toast.LENGTH_SHORT).show()
+        if(memberProfileFullName.text.toString().isNullOrEmpty() && memberProfileSecretQuetion.selectedItem.toString() != "Selecione uma pergunta secreta" && memberProfileSecretAnswer.text.toString().isNullOrEmpty()) {
+            Toast.makeText(this,"Preencha ao menos o nome, pergunta secreta e resposta secreta", Toast.LENGTH_SHORT).show()
         }
         else {
             editMember.apply {
                 this.name = memberProfileFullName.text.toString()
                 this.hometown = memberProfileHometown.text.toString()
                 this.hometownState = resources.getStringArray(R.array.states)[memberProfileHometownState.selectedItemPosition]
+                this.secretQuestion = Member.SecretQuestions.values().find{ it.message == memberProfileSecretQuetion.selectedItem.toString()}!!
                 this.college = memberProfileCollege.text.toString()
                 this.graduate = memberProfileGraduate.text.toString()
                 this.celNumber = memberProfileCelphone.text.toString()
+                this.secretAnswer = memberProfileSecretAnswer.text.toString()
                 //this.image = photoURI.toString()
 
                 memberViewModel.updateMember(this)

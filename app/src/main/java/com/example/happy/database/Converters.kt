@@ -18,6 +18,12 @@ class Converters {
     fun toComponents(string: String) : Notification.Components = Notification.Components.valueOf(string)
 
     @TypeConverter
+    fun fromSecretQuestions(secretQuestions: Member.SecretQuestions) : String = secretQuestions.toString()
+
+    @TypeConverter
+    fun toSecretQuestions(string: String) : Member.SecretQuestions = Member.SecretQuestions.valueOf(string)
+
+    @TypeConverter
     fun fromFrequency(frequency: Cleaning.Frequency) : String = frequency.toString()
 
     @TypeConverter

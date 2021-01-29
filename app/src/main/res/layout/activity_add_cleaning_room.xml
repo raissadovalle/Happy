@@ -37,28 +37,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_cleaning_room_frequency_title"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/cg_add_cleaning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:hint="@string/add_cleaning_room_frequency_title">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_cleaning_room_frequency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:singleSelection="true"
+        app:checkedChip="@+id/checked_chip"
+        app:selectionRequired="true"/>
 
     <Button android:id="@+id/btn_save_cleaning_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_save_cleaning_room"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"/>
+
+    <Button android:id="@+id/btn_clean_cleaning_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_clean_cleaning_room"
+        android:backgroundTint="@color/dark_red"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

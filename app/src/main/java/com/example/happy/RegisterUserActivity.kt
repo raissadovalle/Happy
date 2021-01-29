@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -20,6 +21,8 @@ class RegisterUserActivity : AppCompatActivity() {
     lateinit var registerEmail: EditText
     lateinit var registerPassword: EditText
     lateinit var registerPassword2: EditText
+    lateinit var registerSecretAnswer: EditText
+    lateinit var registerSecretQuestion: Spinner
     lateinit var registerButton: Button
     lateinit var memberRepository: MemberRepository
     private val memberViewModel by viewModels<MemberViewModel>()
@@ -32,10 +35,12 @@ class RegisterUserActivity : AppCompatActivity() {
         registerEmail = findViewById(R.id.inputEmail)
         registerPassword = findViewById(R.id.inputPassword)
         registerPassword2 = findViewById(R.id.inputPasswordAgain)
+        registerSecretAnswer = findViewById(R.id.inputSecretAnswer)
+        registerSecretQuestion = findViewById(R.id.sp_secret_question)
         registerButton = findViewById(R.id.btnSaveUser)
         memberRepository = MemberRepository(application)
         registerButton.setOnClickListener{
-            if(registerName.text.any() && registerEmail.text.any() && registerPassword.text.any() && registerPassword2.text.any())
+            if(registerName.text.any() && registerEmail.text.any() && registerPassword.text.any() && registerPassword2.text.any() && registerSecretAnswer.text.any() && registerSecretQuestion.selectedItem.toString() != "Selecione uma pergunta secreta")
             {
                 if(registerPassword.text.toString() == registerPassword2.text.toString())
                 {
@@ -50,7 +55,9 @@ class RegisterUserActivity : AppCompatActivity() {
                                 college = "",
                                 hometown = "",
                                 hometownState = "",
-                                celNumber = ""
+                                celNumber = "",
+                                secretAnswer = registerSecretAnswer.text.toString(),
+                                secretQuestion = Member.SecretQuestions.values().find{ it.message == registerSecretQuestion.selectedItem.toString()}!!
                                 //image = ""
                         )
                         memberViewModel.createMember(member)

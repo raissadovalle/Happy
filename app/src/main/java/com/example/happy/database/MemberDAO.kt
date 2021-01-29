@@ -23,11 +23,17 @@ interface MemberDAO {
     @Query("SELECT * FROM members WHERE email = :email AND password =:password")
     fun login(email: String, password: String) : Member
 
+    @Query("SELECT * FROM members WHERE email = :email")
+    fun loadSecretQuestion(email: String) : Member
+
     @Query("SELECT * FROM members WHERE repId = :repId")
     fun loadMembersByRep(repId: String) : LiveData<List<Member>>
 
     @Query("SELECT COUNT(*) FROM members WHERE repId = :repId")
     fun countMembersByRep(repId: String?) : Int
+
+    @Query("UPDATE members SET password = :password WHERE id = :id")
+    fun updatePassword(id: String, password: String)
 
     @Insert
     fun insert(member : Member)

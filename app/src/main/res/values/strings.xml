@@ -40,7 +40,7 @@
     <string name="add_cleaning_room_desc_title">Descrição</string>
     <string name="add_cleaning_room_frequency_title">Frequência em dias</string>
     <string name="btn_save_cleaning_room">Salvar</string>
-    <string name="cleaning_toolbar_title">Limpeza - Data x à x</string>
+    <string name="cleaning_toolbar_title">Quadro de Limpeza</string>
     <string name="meetings_toolbar_title">Reuniões</string>
     <string name="shopping_toolbar_title">Compras</string>
     <string name="add_meeting_subject_title">Assunto</string>
@@ -68,6 +68,14 @@
     <string name="buy_meeting_app_bar_title_edit">Comprar</string>
     <string name="btn_buy_shopping_item">Comprar</string>
     <string name="add_shopping_item_price_title">Preço</string>
+    <string name="user_profile_secret_answer">Resposta Secreta</string>
+    <string name="receive_secret_question">Receber pergunta secreta</string>
+    <string name="email_forgot_password">E-mail</string>
+    <string name="text_forgot_password">Para resetar sua senha por favor digite seu e-mail e reponda sua pergunta secreta</string>
+    <string name="answer_secret_question_button">Responder</string>
+    <string name="input_secret_answer">Resposta Secreta</string>
+    <string name="btn_reset_password_title">Resetar senha</string>
+    <string name="btn_clean_cleaning_room">Limpar Cômodo</string>
 
     <string-array name="states">
         <item>Acre (AC)</item>
@@ -97,5 +105,18 @@
         <item>São Paulo (SP)</item>
         <item>Sergipe (SE)</item>
         <item>Tocantins (TO)</item>
+    </string-array>
+    <string-array name="secretQuestions">
+        <item>Selecione uma pergunta secreta</item>
+        <item>Qual sua cor favorita?</item>
+        <item>Qual o nome do seu animal de estimação?</item>
+        <item>Qual a sua comida favorita?</item>
+        <item>Qual o seu filme preferido?</item>
+        <item>Qual a sua música favorita?</item>
+        <item>Qual o nome do seu ator/atriz favorito?</item>
+        <item>Qual o nome do seu livro favorito?</item>
+        <item>Qual a sua cidade favorita?</item>
+        <item>Qual o nome da sua primeira namorada?</item>
+        <item>Qual o nome do seu primeiro namorado?</item>
     </string-array>
 </resources>

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "3d8818bf1a1c9013facd351fb89be467",
+    "identityHash": "410d2570184ec5acdb3ebc21615d62f4",
     "entities": [
       {
         "tableName": "bills",
@@ -168,7 +168,7 @@
       },
       {
         "tableName": "members",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `repId` TEXT, `name` TEXT NOT NULL, `celNumber` TEXT, `email` TEXT NOT NULL, `password` TEXT NOT NULL, `hometown` TEXT, `hometownState` TEXT, `college` TEXT, `graduate` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `repId` TEXT, `name` TEXT NOT NULL, `celNumber` TEXT, `email` TEXT NOT NULL, `password` TEXT NOT NULL, `hometown` TEXT, `hometownState` TEXT, `college` TEXT, `graduate` TEXT, `secretQuestion` TEXT NOT NULL, `secretAnswer` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -229,6 +229,18 @@
             "columnName": "graduate",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "secretQuestion",
+            "columnName": "secretQuestion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secretAnswer",
+            "columnName": "secretAnswer",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -364,7 +376,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3d8818bf1a1c9013facd351fb89be467')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '410d2570184ec5acdb3ebc21615d62f4')"
     ]
   }
 }

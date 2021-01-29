@@ -14,9 +14,13 @@ class MemberViewModel (application: Application) : AndroidViewModel(application)
 
     fun getMemberByRepId(repId: String) = memberRepository.loadMembersByRepId(repId)
 
+    fun getSecretQuestion(email: String) = memberRepository.loadSecretQuestion(email)
+
     fun createMember(member: Member) = memberRepository.insert(member)
 
     fun updateMember(member: Member) = memberRepository.update(member)
+
+    fun updatePassword(id: String, password: String) = memberRepository.updatePassword(id, password)
 
     fun enterRep(member: Member) = memberRepository.enterRep(member)
 

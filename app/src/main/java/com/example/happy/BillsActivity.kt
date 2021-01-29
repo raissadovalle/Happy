@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +54,7 @@ class BillsActivity : AppCompatActivity() {
     lateinit var chipGroupMonths: ChipGroup
     lateinit var floatingButton: FloatingActionButton
     lateinit var recyclerBills: RecyclerView
+    lateinit var adapterBills: BillItemAdapter
     private val billViewModel by viewModels<BillViewModel>()
     private val memberViewModel by viewModels<MemberViewModel>()
     private val notificationViewModel by viewModels<NotificationViewModel>()
@@ -71,8 +73,13 @@ class BillsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         buttonToolbar = findViewById(R.id.button_bill_tollbar)
         buttonToolbar.setOnClickListener {
-            val intent = Intent(this, CloseMonthActivity::class.java)
-            startActivity(intent)
+
+            if(adapterBills.list.filter{ it.isClosed == false}.size > 0){
+                val intent = Intent(this, CloseMonthActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Não há contas em aberto!", Toast.LENGTH_SHORT).show()
+            }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -176,7 +183,7 @@ class BillsActivity : AppCompatActivity() {
 
         recyclerBills = findViewById(R.id.rv_bills)
 
-        val adapterBills = BillItemAdapter(this)
+        adapterBills = BillItemAdapter(this)
 
         recyclerBills.adapter = adapterBills
         recyclerBills.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
